@@ -18,6 +18,7 @@ public class MainLoop{
 	private static BitSet inputs = new BitSet(5);
 	
 	public static void main(String[] args) {
+		gs.init();
 		int loops = 0;
 		long NextTick = System.currentTimeMillis();
 		boolean running = true;

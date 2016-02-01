@@ -1,14 +1,14 @@
 package central;
 
 import java.util.BitSet;
-import java.util.List;
+import java.util.ArrayList;
 
 import viewable.PrimaryView;
 
 public class GameState {
 	private PrimaryView pv;
-	private List<Person> heroes;
-	private List<Person> baddies;
+	private ArrayList<Person> heroes;
+	private ArrayList<Person> baddies;
 	
 	public GameState (PrimaryView pov)
 	{
@@ -24,7 +24,9 @@ public class GameState {
 	}
 	public void init()
 	{
-		
-		
+		heroes = new ArrayList<Person>();
+		baddies = new ArrayList<Person>();
+		heroes.add(new Person(5,5,5,5,5,5));
+		baddies.add(new Person(10,10,10,10,10,10));
 	}
 }
