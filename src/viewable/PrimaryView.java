@@ -54,7 +54,7 @@ public class PrimaryView extends JPanel implements KeyListener{
 		mainPane.add(visiblePane);
 		mainPane.add(menuPane);;
 		
-		menuPane.setLayout(new GridLayout(4,2));
+		menuPane.setLayout(new GridLayout(5,2));
 		Option1 = new JLabel("Option1text");
 		Option2 = new JLabel("Option2text");
 		Option3 = new JLabel("Option3text");
@@ -65,6 +65,8 @@ public class PrimaryView extends JPanel implements KeyListener{
 		Option8 = new JLabel("Option8text");
 		titleLabel = new JLabel(titleLabeltext);
 		
+		menuPane.add(titleLabel);
+		menuPane.add(new JLabel(" "));
 		menuPane.add(Option1);
 		menuPane.add(Option5);
 		menuPane.add(Option2);
@@ -75,7 +77,7 @@ public class PrimaryView extends JPanel implements KeyListener{
 		menuPane.add(Option8);
 		
 		visiblePane.setLayout(new GridLayout(1,1));
-		visiblePane.add(titleLabel);
+		//visiblePane.add(titleLabel);
 		//label = new JLabel("Inputs: Left " + inputs.get(0) + ", Right "  + inputs.get(1) +" Up, "  + inputs.get(2) +" Down, " + inputs.get(3) );
 
 		jf.pack();
