@@ -13,8 +13,5 @@ public class CombatHandler {
 		baddies = b;
 		Initialized = true;
 	}
-	public void tick()
-	{
-		
-	}
+
 }

@@ -43,7 +43,8 @@ public class MainLoop{
 	{
 		try {
 			inputs = pv.getInputs();
-			gs.tick(inputs);
+			int pos = pv.getPosition();
+			gs.tick(inputs, pos);
 			pv.tick(inputs);
 		} catch (Exception e) {
 			e.printStackTrace();

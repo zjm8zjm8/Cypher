@@ -146,6 +146,11 @@ public class PrimaryView extends JPanel implements KeyListener{
 		
 	}
 
+	public int getPosition()
+	{
+		return pos;
+	}
+	
 	public void updateTitle(String what)
 	{
 		titleLabeltext = what;
@@ -229,8 +234,8 @@ public class PrimaryView extends JPanel implements KeyListener{
 	}
 	
 	public void tick(BitSet inputs2) {
-		titleLabel.setText("Frames: " + frames + " Inputs: Left-" + inputs2.get(2) + ", Right-"  + inputs2.get(3) +", Up-"  + inputs2.get(0) +", Down-" + inputs2.get(1) );
-		
+		//titleLabel.setText("Frames: " + frames + " Inputs: Left-" + inputs2.get(2) + ", Right-"  + inputs2.get(3) +", Up-"  + inputs2.get(0) +", Down-" + inputs2.get(1) );
+		titleLabel.setText(titleLabeltext);
 		Option1.setText(arrowText(1)+Option1text);
 		Option2.setText(arrowText(2)+Option2text);
 		Option3.setText(arrowText(3)+Option3text);
