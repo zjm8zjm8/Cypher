@@ -17,10 +17,10 @@ public class GameState {
 	
 	public void tick(BitSet inputs)
 	{
-		if (inputs.get(2))
+		/*if (inputs.get(2))
 			pv.updateLabel2("+");
 		if (inputs.get(3))
-			pv.updateLabel2("-");
+			pv.updateLabel2("-");*/
 	}
 	public void init()
 	{
