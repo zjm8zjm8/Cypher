@@ -18,9 +18,9 @@ public class GameState {
 		pv = pov;
 	}
 	
-	public void tick(BitSet inputs, int position)
+	public void tick(BitSet inputs, int position, boolean enterPressed)
 	{
-		if (inputs.get(4))
+		if (enterPressed)
 		{
 			if (state == States.MENU)
 			{
@@ -29,14 +29,12 @@ public class GameState {
 				else if (position == 2)
 					System.exit(0);
 			}
-			if (state == States.BATTLE)
+			else if (state == States.BATTLE)
 			{
-				if(!ch.isStillRunning())
+				if(!ch.receiveInput(position))
 				{
-					state = States.MENU;
-					return;
+					changeState(States.MENU);
 				}
-				ch.receiveInput(position);
 			}
 		}
 	}
@@ -55,7 +53,7 @@ public class GameState {
 	{
 		ch = new CombatHandler();
 		ch.initialize(this, heroes, baddies);
-		state = States.BATTLE;
+		changeState(States.BATTLE);
 		
 	}
 	public void getTitleUpdate(String title)
@@ -65,5 +63,21 @@ public class GameState {
 	public void getMenuUpdates(String menu1, String menu2, String menu3, String menu4, String menu5, String menu6, String menu7, String menu8)
 	{
 		pv.updateMenu(menu1, menu2, menu3, menu4, menu5, menu6, menu7, menu8);
+	}
+	public void changeState(States stat)
+	{
+		switch (stat)
+		{
+		case MENU:
+			pv.updateTitle("Back to the menu...");
+			pv.updateMenu("Fight", "Quit", "", "", "", "", "", "");
+			state = States.MENU;
+			break;
+		case BATTLE:
+			pv.updateTitle("What will you do?");
+			pv.updateMenu("Fight", "Defend", "Run", "","","","","");
+			state = States.BATTLE;
+			break;
+		}
 	}
 }

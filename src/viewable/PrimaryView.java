@@ -97,6 +97,16 @@ public class PrimaryView extends JPanel implements KeyListener{
 		return inputs;
 	}
 	
+	public boolean getOutput(BitSet inputs2)
+	{
+		if (inputs.get(4) && coolDownTicks < 0)
+		{
+			coolDownTicks = 10;
+			return true;
+		}
+		return false;
+	}
+	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 	}

@@ -44,7 +44,8 @@ public class MainLoop{
 		try {
 			inputs = pv.getInputs();
 			int pos = pv.getPosition();
-			gs.tick(inputs, pos);
+			boolean select = pv.getOutput(inputs);
+			gs.tick(inputs, pos, select);
 			pv.tick(inputs);
 		} catch (Exception e) {
 			e.printStackTrace();

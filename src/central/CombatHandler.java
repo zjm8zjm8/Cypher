@@ -1,10 +1,13 @@
 package central;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class CombatHandler {
 	private List<Person> heroes;
 	private List<Person> baddies;
+	private Person[] turnOrder;
+	private List<String> thingsToSay;
 	private boolean Initialized = false;
 	private boolean isRunning = false;
 	private boolean notExpectingInput = false;
@@ -18,8 +21,7 @@ public class CombatHandler {
 		gs = gms;
 		Initialized = true;
 		isRunning = true;
-		gs.getTitleUpdate("What do you do?");
-		gs.getMenuUpdates("Fight", "Defend", "Run", "","","","","");
+		getTurnOrder();
 	}
 	
 	public boolean isStillRunning()
@@ -27,28 +29,42 @@ public class CombatHandler {
 		return isRunning;
 	}
 	
-	
-	public void receiveInput(int number)
+	public void getTurnOrder()
 	{
+		turnOrder = new Person[heroes.size() + baddies.size()];
+		
+		
+	}
+	
+	public void addToOrder(Person target)
+	{
+		
+	}
+	
+	public boolean receiveInput(int number)
+	{
+		if (!Initialized)
+			return false;
 		if (notExpectingInput)
 		{
 			notExpectingInput = false;
 			gs.getTitleUpdate("What will you do?");
-			return;
 		}
-		if (number == 1)
+		else if (number == 1)
 		{
 			gs.getTitleUpdate("You fight.");
+			notExpectingInput = true;
 		}
-		if (number == 2)
+		else if (number == 2)
 		{
 			gs.getTitleUpdate("You defend.");
+			notExpectingInput = true;
 		}
-		if (number == 3)
+		else if (number == 3)
 		{
 			gs.getTitleUpdate("You run away.");
-			isRunning = false;
+			return false;
 		}
-		notExpectingInput = true;
+		return true;
 	}
 }
