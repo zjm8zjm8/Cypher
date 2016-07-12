@@ -42,7 +42,7 @@ public class GameState {
 	{
 		heroes = new ArrayList<Person>();
 		baddies = new ArrayList<Person>();
-		heroes.add(new Person(15,15,15,15,15,15));
+		heroes.add(new Hero(15,15,15,15,15,15));
 		baddies.add(new Person(10,10,10,10,10,10));
 		pv.updateTitle("Start");
 		
@@ -74,8 +74,8 @@ public class GameState {
 			state = States.MENU;
 			break;
 		case BATTLE:
-			pv.updateTitle("What will you do?");
-			pv.updateMenu("Fight", "Defend", "Run", "","","","","");
+			pv.updateTitle("A Battle Begins!");
+			pv.updateMenu("Okay", "", "", "","","","","");
 			state = States.BATTLE;
 			break;
 		}

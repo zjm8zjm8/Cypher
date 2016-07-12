@@ -1,18 +1,32 @@
 package central;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
 public class CombatHandler {
 	private List<Person> heroes;
 	private List<Person> baddies;
-	private Person[] turnOrder;
+	private LinkedList<Person> turnOrder;
 	private List<String> thingsToSay;
 	private boolean Initialized = false;
 	private boolean isRunning = false;
-	private boolean notExpectingInput = false;
+	private String phase;
 	private GameState gs;
-	
+	private Comparator<Person> speedCompare = new Comparator<Person>() { 
+		@Override
+		public int compare(Person o1, Person o2)
+		{
+			if (o1.getSP() > o2.getSP()) return 1;
+			if (o1.getSP() < o2.getSP()) return -1;
+			else
+			{
+				if (o1.getLK() > o2.getLK()) return 1;
+				if (o1.getLK() < o2.getLK()) return -1;
+				else return 0;
+			}
+		}
+	};
 	
 	public void initialize(GameState gms, List<Person> h, List<Person> b)
 	{
@@ -22,6 +36,7 @@ public class CombatHandler {
 		Initialized = true;
 		isRunning = true;
 		getTurnOrder();
+		phase = "Beginning";
 	}
 	
 	public boolean isStillRunning()
@@ -31,40 +46,68 @@ public class CombatHandler {
 	
 	public void getTurnOrder()
 	{
-		turnOrder = new Person[heroes.size() + baddies.size()];
-		
-		
+		turnOrder = new LinkedList<Person>();
+		turnOrder.addAll(heroes);
+		turnOrder.addAll(baddies);
+		turnOrder.sort(speedCompare);
 	}
 	
-	public void addToOrder(Person target)
-	{
-		
-	}
-	
+	//Returns true if the battle is ongoing.
 	public boolean receiveInput(int number)
 	{
 		if (!Initialized)
 			return false;
-		if (notExpectingInput)
+		if (phase == "Beginning" || phase == "Ready")
 		{
-			notExpectingInput = false;
+			phase = "Decision";
 			gs.getTitleUpdate("What will you do?");
+			gs.getMenuUpdates("Fight", "Defend", "Item", "Magic", "Status", "Run", "", "");
+			return true;
 		}
-		else if (number == 1)
+		if (phase == "Decision")
+		{	
+			if (number == 1)
+			{
+				gs.getTitleUpdate("You fight.");
+				gs.getMenuUpdates("Okay","","","","","","","");
+				phase = "Ready";
+			}
+			else if (number == 2)
+			{
+				gs.getTitleUpdate("You defend.");
+				gs.getMenuUpdates("Okay","","","","","","","");
+				phase = "Ready";
+			}
+			else if (number == 3)
+			{
+				gs.getTitleUpdate("You have no items.");
+				gs.getMenuUpdates("Okay","","","","","","","");
+				phase = "Ready";
+			}
+			else if (number == 4)
+			{
+				gs.getTitleUpdate("You have no magic.");
+				gs.getMenuUpdates("Okay","","","","","","","");
+				phase = "Ready";
+			}
+			else if (number == 5)
+			{
+				gs.getTitleUpdate("You have no status.");
+				gs.getMenuUpdates("Okay","","","","","","","");
+				phase = "Ready";
+			}
+			else if (number == 6)
+			{
+				gs.getTitleUpdate("You run away.");
+				gs.getMenuUpdates("Okay","","","","","","",""); 
+				return false;
+			}
+			return true;
+		}
+		else
 		{
-			gs.getTitleUpdate("You fight.");
-			notExpectingInput = true;
+			gs.getTitleUpdate("ILLEGAL STATE");
+			return true;
 		}
-		else if (number == 2)
-		{
-			gs.getTitleUpdate("You defend.");
-			notExpectingInput = true;
-		}
-		else if (number == 3)
-		{
-			gs.getTitleUpdate("You run away.");
-			return false;
-		}
-		return true;
 	}
 }
