@@ -11,7 +11,9 @@ public class CombatHandler {
 	private List<String> thingsToSay;
 	private boolean Initialized = false;
 	private boolean isRunning = false;
+	private int TurnNumber;
 	private String phase;
+	private boolean isHeroesTurn = true;
 	private GameState gs;
 	private Comparator<Person> speedCompare = new Comparator<Person>() { 
 		@Override
@@ -37,6 +39,8 @@ public class CombatHandler {
 		isRunning = true;
 		getTurnOrder();
 		phase = "Beginning";
+		TurnNumber = 0;
+		
 	}
 	
 	public boolean isStillRunning()

@@ -10,7 +10,7 @@ public class Person {
 	private int HP;
 	private int HPMax;
 	private boolean isAlive = true;
-	protected boolean isGood;
+	protected boolean isGood = false;
 	
 	public Person(int endurance, int strength, int intelligence, int dexterity, int speed, int luck)
 	{
